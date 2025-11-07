@@ -3,6 +3,7 @@ import "./globals.css";
 import "modern-normalize";
 import { Roboto } from "next/font/google";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
+import AuthProvider from "@/components/AuthProvider/AuthProvider";
 import {
   HOME_PAGE,
   OG_IMAGE,
@@ -44,10 +45,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={roboto.variable} suppressHydrationWarning>
         <TanStackProvider>
-          <Header />
-          {children}
-          {modal}
-          <Footer />
+          <AuthProvider>
+            <Header />
+            {children}
+            {modal}
+            <Footer />
+          </AuthProvider>
         </TanStackProvider>
       </body>
     </html>

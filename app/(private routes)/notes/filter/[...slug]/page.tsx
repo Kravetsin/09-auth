@@ -4,7 +4,7 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import Notes from "./Notes.client";
-import { fetchNotes } from "@/lib/api";
+import { fetchServerNotes } from "@/lib/api/serverApi";
 import {
   HOME_PAGE,
   OG_IMAGE,
@@ -48,7 +48,7 @@ export default async function NotesPage({ params }: Props) {
   await queryClient.prefetchQuery({
     queryKey: ["notes", page, search, tag],
     queryFn: () =>
-      fetchNotes({
+      fetchServerNotes({
         page,
         search,
         ...(tag && tag !== "All" ? { tag } : {}),

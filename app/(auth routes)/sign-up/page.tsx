@@ -1,32 +1,30 @@
 "use client";
 
-import css from "./SignInPage.module.css";
-import { useAuthStore } from "@/lib/store/authStore";
+import css from "./SignUpPage.module.css";
+import { RegisterLoginRequest } from "@/types/user";
+import { register } from "@/lib/api/clientApi";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { login } from "@/lib/api/clientApi";
 import { isAxiosError } from "axios";
-import { RegisterLoginRequest } from "@/types/user";
+import { useAuthStore } from "@/lib/store/authStore";
 
 const getUserData = (formData: FormData): RegisterLoginRequest => {
   return {
-    email: formData.get("email") as string,
-    password: formData.get("password") as string,
+    email: (formData.get("email") as string) || "",
+    password: (formData.get("password") as string) || "",
   };
-}
+};
 
-export default function SignInPage() {
+export default function SignUpPage() {
   const router = useRouter();
   const setUser = useAuthStore((state) => state.setUser);
   const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-
+  const handleSubmit = async (formData: FormData) => {
     try {
       const userData = getUserData(formData);
-      const user = await login(userData);
+      const user = await register(userData);
+
       setUser(user);
       router.push("/profile");
     } catch (error) {
@@ -40,9 +38,8 @@ export default function SignInPage() {
 
   return (
     <main className={css.mainContent}>
-      <form className={css.form} onSubmit={handleSubmit}>
-        <h1 className={css.formTitle}>Sign in</h1>
-
+      <form action={handleSubmit} className={css.form}>
+        <h1 className={css.formTitle}>Sign up</h1>
         <div className={css.formGroup}>
           <label htmlFor="email">Email</label>
           <input
@@ -67,7 +64,7 @@ export default function SignInPage() {
 
         <div className={css.actions}>
           <button type="submit" className={css.submitButton}>
-            Log in
+            Register
           </button>
         </div>
 
