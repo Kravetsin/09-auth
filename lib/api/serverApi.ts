@@ -54,5 +54,7 @@ export const getServerMe = async (): Promise<User> => {
       Cookie: cookieStore.toString(),
     },
   });
+  console.log(data);
+  
   return data;
 };
