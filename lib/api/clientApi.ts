@@ -29,43 +29,43 @@ export const fetchNotes = async ({
 };
 
 export async function deleteNote(id: string): Promise<Note> {
-  const { data } = await api.delete<Note>(`/api/notes/${id}`);
+  const { data } = await api.delete<Note>(`/notes/${id}`);
   return data;
 }
 
 export async function createNote(newNote: NewNoteData): Promise<Note> {
-  const { data } = await api.post<Note>("/api/notes", newNote);
+  const { data } = await api.post<Note>("/notes", newNote);
   return data;
 }
 
 export async function fetchNoteById(id: string): Promise<Note> {
-  const { data } = await api.get<Note>(`/api/notes/${id}`);
+  const { data } = await api.get<Note>(`/notes/${id}`);
   return data;
 }
 
 export const register = async (data: RegisterLoginRequest) => {
-  const res = await api.post<User>(`/api/auth/register`, data);
+  const res = await api.post<User>(`/auth/register`, data);
   return res.data;
 };
 
 export const login = async (data: RegisterLoginRequest) => {
-  const res = await api.post<User>(`/api/auth/login`, data);
+  const res = await api.post<User>(`/auth/login`, data);
   return res.data;
 };
 
 export const logout = async (): Promise<void> => {
-  await api.post(`/api/auth/logout`);
+  await api.post(`/auth/logout`);
 };
 type CheckSessionRequest = {
   success: boolean;
 };
 export const checkSession = async () => {
-  const res = await api.get<CheckSessionRequest>("/api/auth/session");
+  const res = await api.get<CheckSessionRequest>("/auth/session");
   return res.data.success;
 };
 
 export const getMe = async () => {
-  const { data } = await api.get<User>("/api/users/me");
+  const { data } = await api.get<User>("/users/me");
   return data;
 };
 
@@ -75,6 +75,6 @@ export type updateProfileProps = {
 };
 
 export const updateProfile = async (data: updateProfileProps) => {
-  const res = await api.patch<User>(`/api/users/me`, data);
+  const res = await api.patch<User>(`/users/me`, data);
   return res.data;
 };

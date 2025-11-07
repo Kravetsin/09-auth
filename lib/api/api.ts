@@ -1,7 +1,8 @@
 import axios from "axios";
 
-// Для клиентского кода используем относительные пути к Next.js API routes
+const baseUrl = process.env.NEXT_PUBLIC_NOTEHUB_URL + "/api";
+
 export const api = axios.create({
-  baseURL: typeof window !== "undefined" ? "" : process.env.NEXT_PUBLIC_API_URL,
+  baseURL: baseUrl,
   withCredentials: true,
 });
