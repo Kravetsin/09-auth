@@ -16,7 +16,7 @@ export interface FetchNotesResponse {
 }
 
 export const fetchServerNotes = async (
-  params: FetchNotesProps
+  params: { perPage: 12 } & FetchNotesProps
 ): Promise<FetchNotesResponse> => {
   const cookieStore = await cookies();
   const response = await api.get<FetchNotesResponse>("/notes", {
@@ -55,6 +55,6 @@ export const getServerMe = async (): Promise<User> => {
     },
   });
   console.log(data);
-  
+
   return data;
 };

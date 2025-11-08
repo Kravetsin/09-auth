@@ -49,6 +49,7 @@ export default async function NotesPage({ params }: Props) {
     queryKey: ["notes", page, search, tag],
     queryFn: () =>
       fetchServerNotes({
+        perPage: 12,
         page,
         search,
         ...(tag && tag !== "All" ? { tag } : {}),
