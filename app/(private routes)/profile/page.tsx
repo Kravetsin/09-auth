@@ -2,6 +2,20 @@ import Link from "next/link";
 import css from "./ProfilePage.module.css";
 import Image from "next/image";
 import { getServerMe } from "@/lib/api/serverApi";
+import { SITE_NAME } from "@/config/metaData";
+import { Metadata } from "next/dist/lib/metadata/types/metadata-interface";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const user = await getServerMe();
+  const title =
+    SITE_NAME + " - " + (user?.username + " profile" || "Profile page");
+  const description =
+    "Manage your profile and account settings on " + SITE_NAME;
+  return {
+    title,
+    description,
+  };
+}
 
 export default async function ProfilePage() {
   const user = await getServerMe();
