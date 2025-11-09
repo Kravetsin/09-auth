@@ -16,7 +16,7 @@ export default async function NotePreviewPage({
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ["notes", id],
+    queryKey: ["note", id],
     queryFn: () => fetchServerNoteById(id),
   });
 
